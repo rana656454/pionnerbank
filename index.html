@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>paioner bank</title>
+
+</head>
+<body>
+    <div class="login-area" id="login-area">
+    <h1 class="text-center">Welcome to Paionner bank</h1>
+    <div class="submit-area text-center">
+        <h2>Login</h2>
+        <form>
+            <input type="text" class="form-control" placeholder="Email"><br>
+            <input type="text" class="form-control" placeholder="Password"><br>
+            <input type="button" id="login" value="Submit" class="btn btn-success">
+        </form>
+    </div>
+</div>
+
+
+<div id="transaction-area">
+    <div class="container">
+<div class="row">
+    <div class="col-md-4">
+        <div class="deposit status">
+            <h5>Deposit</h5>
+            <h2>$<span id="currentDeposit">00</span></h2>
+        </div>
+       
+    </div>
+    <div class="col-md-4">
+        <div class="withdraw status">
+            <h5>Withdraw</h5>
+            <h2>$<span id="currentWithdraw">00</span></h2>
+        </div>
+       
+    </div>
+    <div class="col-md-4">
+      <div class="balance status">
+        <h5>Balance</h5>
+        <h2>$<span id="currentBalance">100</span></h2>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="deposit-input status-input">
+        <h3>Deposit</h3><br>
+        <input type="text" class="form-control" placeholder="Deposit Balance" id="inp-depo"><br><br>
+        <input type="button" id = "deposit-btn" class="btn btn-success" value="Deposit">
+    </div>
+    </div>
+    <div class="col-md-6">
+        <div class="withdraw-input status-input">
+        <h3>Withdraw</h3><br>
+        <input type="text" class="form-control" placeholder="Withdraw Balance" id="inp-widthdraw"><br><br>
+        <input type="button" id="withdraw-btn" class="btn btn-success" value="Withdraw">
+    </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+
+<script>
+    const loginBtn= document.getElementById('login')
+    loginBtn.addEventListener("click",function(){
+        const loginArea = document.getElementById("login-area")
+        loginArea.style.display="none"
+
+        const transArea = document.getElementById("transaction-area")
+        transArea.style.display="block"
+
+
+    })
+
+    const depositBtn = document.getElementById("deposit-btn")
+
+    const widthdrawBtn = document.getElementById("withdraw-btn")
+
+    depositBtn.addEventListener("click",function(){
+
+        const depositInp = document.getElementById("inp-depo")
+        const depositNumber = getInput(depositInp)
+
+        const curDepoId = document.getElementById("currentDeposit")
+        const curBalanceId = document.getElementById("currentBalance")
+      
+         updateSpanText(curDepoId,depositNumber)
+        updateSpanText(curBalanceId,depositNumber)
+
+        document.getElementById("inp-depo").value=" "
+        
+    })
+
+
+    widthdrawBtn.addEventListener("click",function(){
+        const widthdrawInp = document.getElementById("inp-widthdraw")
+
+        const widthdrawNumber = getInput(widthdrawInp)
+
+        const curwidthId = document.getElementById("currentWithdraw")
+        const curBalanceId = document.getElementById("currentBalance")
+         
+         updateSpanText(curwidthId,widthdrawNumber)
+         updateSpanText(curBalanceId,-1*widthdrawNumber)
+
+        document.getElementById("inp-widthdraw").value=" "
+    })
+
+
+
+
+
+function getInput(inpId){
+    const inpAmount = inpId.value
+        const inpNumber = parseFloat(inpAmount)
+        return inpNumber     
+}
+
+
+function updateSpanText(id,depositTk){
+        const current = id.innerText
+        const currentTk = parseFloat(current)
+        id.innerText=currentTk+depositTk
+}
+
+
+
+
+
+
+</script>
+</body>
+</html>
